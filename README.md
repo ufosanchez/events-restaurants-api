@@ -32,6 +32,7 @@ The project involves the integration of three APIs:
    - Ticketmaster API Key
    - Yelp API Key
    - Fontawesome Key
+4. Check the documentation to create your logic to display the markers (I did not add them, because I made my logic to display them with the help of the documentation, you can make yours with the help of the documentation)
 5. Run the server using `npm run dev`.
 6. Access the application in your web browser at http://localhost:8888.
 
