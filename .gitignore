@@ -1,0 +1,4 @@
+.env
+/node_modules
+/public/js/maps.js
+/public/js/mapsDirections.js

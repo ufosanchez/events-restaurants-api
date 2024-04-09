@@ -1,0 +1,112 @@
+extends layout 
+
+block append scripts
+  script(src="/js/maps.js")
+
+block main-content 
+
+  div.all-page.main-padding
+    div.main
+      div.page-title
+        div 
+          h1.title-index Welcome to my API Project! 
+          p This project would let you see different events depend the city and some of the best restaurants in the area
+        
+        div.search-bar
+          span.fa-solid.fa-earth-americas.padding-right
+          form(action="" method="get")
+            input(type="text" id="city" name="citySearch")
+            button(type="submit") Search City
+
+      div#map
+
+    div.restaurant-section
+      div
+        h2 Restaurants in #{restaurants[0].location.city} 
+        p In this section, you can see 10 of the most important restaurants in 
+          spam.bold #{restaurants[0].location.city}
+          | , this was made by the use of the 
+          spam.bold Yelp API
+          | . At the top you can see a 
+          spam.bold map with the locations of the restaurants (yellow marker)
+          | , feel free to zoom in and navigate with the map. 
+        p Through this 
+          spam.bold horizontal scroll 
+          | , you will be able to see each of the restaurants and each of these restaurants and by clicking on the 
+          spam.bold Details Restaurant 
+          | you will get more information.
+      img(src="/images/restaurants-icons.png", alt="Restaurant Icons").icon-event-restaurant
+
+    div.gallery-wrap 
+      span#backBtn.fa-solid.fa-chevron-left
+      div.gallery
+        ul
+          each r in restaurants 
+            li.item-scroll
+              h3.restaurant-title #{r.name}
+              p 
+                spam.bold Phone #: 
+                | #{r.display_phone}
+              p 
+                spam.bold Address: 
+                | #{r.location.address1}, #{r.location.city}, #{r.location.state} #{r.location.zip_code}, #{r.location.country}
+              a(href=`/restaurant/${r.id}`).margin-5 Details Restaurant
+      span#nextBtn.fa-solid.fa-chevron-right
+
+    div.restaurant-section
+      div
+        h2 Events in #{restaurants[0].location.city} 
+        p In this section, you will find 10 current events in 
+          spam.bold #{restaurants[0].location.city}
+          | . The 
+          spam.bold red marker 
+          | represents the location of the event displayed on the  
+          spam.bold map
+          | . The event information is collected through the 
+          spam.bold Ticketmaster API
+        p Below, you can see the list of events where you can navigate to 
+          spam.bold detailed information 
+          | or to the Ticketmaster page of the event.
+      img(src="/images/events-icons.png", alt="Event Icons").icon-event-restaurant
+
+    ul.remove-padding
+      div.ticketmaster
+        each e in events 
+          li.card
+            h3.event-title #{e.name}
+            p 
+              spam.bold Date: 
+              | #{e.dates.start.localDate} #{e.dates.start.localTime} 
+            p 
+              spam.bold Place: 
+              | #{e._embedded.venues[0].name}
+
+            - let stateCode = '';
+            - if (e._embedded.venues[0].state) { stateCode = `${e._embedded.venues[0].state.stateCode},` }
+            - let address = `${e._embedded.venues[0].city.name}, ${stateCode} ${e._embedded.venues[0].postalCode}, ${e._embedded.venues[0].country.countryCode}`
+            p 
+              spam.bold Address: 
+              | #{e._embedded.venues[0].address.line1}, #{address}
+            img(src=`${e.images[0].url}`, alt="Image Event").event-img
+            div.links
+              a(href=`/event/${e.id}`) Details Event
+              a(href=`${e.url}`) Buy Tickets
+  
+  script.
+    (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
+      key: "<API-KEY>",
+      v: "weekly",
+      });
+      
+  script. 
+    let eventsLocations = !{JSON.stringify(events)};
+    let eventObjCenter = {
+      lat: '#{events[0]._embedded.venues[0].location.latitude}',
+      lng: '#{events[0]._embedded.venues[0].location.longitude}'
+    };
+
+    console.log(eventsLocations)
+    console.log(eventObjCenter)
+
+    let restaurantsLocations = !{JSON.stringify(restaurants)};
+    console.log("restaurantsLocations", restaurantsLocations)

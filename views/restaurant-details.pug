@@ -1,0 +1,56 @@
+extends layout 
+
+block main-content
+
+    div.all-page.main-padding
+        div.padding-100
+                h2 Restaurant Details:
+        div.card-restaurant
+            h1.event-title #{restaurantDetails.name}
+            div.flex-info-restaurant
+                div
+                    p 
+                        spam.bold Main type of Food: 
+                        | #{restaurantDetails.categories[0].title}
+                    p 
+                        spam.bold Review Count: 
+                        | #{restaurantDetails.review_count}
+                    p 
+                        spam.bold Rating: 
+                        | #{restaurantDetails.rating}
+                div
+                    p 
+                        spam.bold Phone #: 
+                        | #{restaurantDetails.display_phone}
+                    p 
+                        spam.bold Address: 
+                        | #{restaurantDetails.location.address1}, #{restaurantDetails.location.city}, #{restaurantDetails.location.state} #{restaurantDetails.location.zip_code}, #{restaurantDetails.location.country}
+                    p 
+                        spam.bold Price: 
+                        | #{restaurantDetails.price}
+            a(href=`${restaurantDetails.url}`).margin-5 Yelp Website
+            p 
+                spam.bold Gallery:
+            div.gallery-restaurant.margin-5
+                each p in restaurantDetails.photos
+                    img(src=`${p}`, alt="Image Dish Restaurant").restaurant-img
+        
+        div.padding-100
+            h2 Check Reviews:
+            each review in restaurantReviews
+                div.conatiner-reviews
+                    div
+                        p 
+                            spam.bold Name: 
+                            | #{review.user.name}
+                        if (review.user.image_url !== null)
+                            img(src=`${review.user.image_url}`, alt="Image User of the review").restaurant-img
+                        else
+                            img(src="https://cdn-icons-png.freepik.com/512/1144/1144760.png", alt="Image User not found").restaurant-img
+                    div.user-review
+                        p 
+                            spam.bold Rating: 
+                            | #{review.rating}
+                        p 
+                            spam.bold Review: 
+                            | #{review.text}

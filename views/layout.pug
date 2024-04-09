@@ -1,0 +1,17 @@
+block variables 
+doctype html 
+html 
+  head
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title #{title} | Events and Restaurants
+    block scripts 
+      link(rel="stylesheet", type="text/css", href="/styles.css")
+      script(src="https://polyfill.io/v3/polyfill.min.js?features=default")
+      script(src="https://kit.fontawesome.com/<FONTAWESOME-KEY>.js", crossorigin="anonymous")
+  body
+    include header.pug
+    main#main 
+      block main-content 
+    footer#footer.all-page.main-padding
+      p.no-margin.bold &copy; Copyright Arnulfo Sanchez, 2024.

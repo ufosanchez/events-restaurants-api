@@ -1,0 +1,122 @@
+extends layout 
+
+block append scripts
+  script(src="/js/mapsDirections.js")
+
+block main-content 
+
+  div.all-page.main-padding
+    div.main
+      h1.padding-left.title-index Event Details: 
+        spam.color-red #{eventDetails.name}
+      p.padding-left This page will show you the 
+        spam.bold deatils event 
+        | and lists 
+        spam.bold 10 restaurants near the event location
+        | . By default, it displays directions from the Event 
+        spam.bold (marked A) 
+        | to the first restaurant on the list 
+        spam.bold (marked B)
+        | . However, you can choose a different restaurant by clicking on 
+        spam.bold "Get directions" on the Restaurant card
+        | , this link will display directions to your selected restaurant.
+      
+      div#map
+
+    div.section-event-details
+      h2 Event Details: 
+        spam.color-red #{eventDetails.name}
+      div.container-event-details
+        div
+          p 
+            spam.bold Date: 
+            | #{eventDetails.dates.start.localDate} #{eventDetails.dates.start.localTime}
+          p 
+            spam.bold Category: 
+            | #{eventDetails.classifications[0].segment.name} - #{eventDetails.classifications[0].genre.name}
+          p 
+            spam.bold Status Event: 
+            | #{eventDetails.dates.status.code}  
+          p 
+            spam.bold Place: 
+            | #{eventDetails._embedded.venues[0].name}
+
+          - let stateCode = '';
+          - if (eventDetails._embedded.venues[0].state) { stateCode = `${eventDetails._embedded.venues[0].state.stateCode},` }
+          - let address = `${eventDetails._embedded.venues[0].city.name}, ${stateCode} ${eventDetails._embedded.venues[0].postalCode}, ${eventDetails._embedded.venues[0].country.countryCode}`
+          p 
+            spam.bold Address: 
+            | #{eventDetails._embedded.venues[0].address.line1}, #{address}
+          if eventDetails.priceRanges
+            p 
+              spam.bold Price Range: 
+              | #{eventDetails.priceRanges[0].min} - #{eventDetails.priceRanges[0].max} #{eventDetails.priceRanges[0].currency} 
+          if eventDetails.ticketLimit
+            p 
+              spam.bold Ticket Limit: 
+              | #{eventDetails.ticketLimit.info}
+          if eventDetails.ageRestrictions
+            if (eventDetails.ageRestrictions.legalAgeEnforced === false)
+              p 
+                spam.bold Age Restrictions: 
+                | No
+            else
+              p 
+                spam.bold Age Restrictions: 
+                | Yes
+          a(href=`${eventDetails.url}`) Buy Tickets
+
+        div
+          if eventDetails.seatmap
+            img(src=`${eventDetails.seatmap.staticUrl}`, alt='Seat Map').event-details-img
+          img(src=`${eventDetails.images[0].url}`, alt="Image Event").event-details-img.margin-top
+
+    div.section-event-details
+      h2 Restaurants near by the Event: 
+        spam.color-red #{eventDetails.name}
+
+    ul.remove-padding
+      div.yelp
+        each r in restaurantsAround 
+          li.card
+            h3.event-title #{r.name}
+            p 
+              spam.bold Main type of Food: 
+              | #{r.categories[0].title}
+            p 
+              spam.bold Review Count: 
+              | #{r.review_count}
+            p 
+              spam.bold Rating: 
+              | #{r.rating}
+            p 
+              spam.bold Phone #: 
+              | #{r.display_phone}
+            p 
+              spam.bold Address: 
+              | #{r.location.address1}, #{r.location.city}, #{r.location.state} #{r.location.zip_code}, #{r.location.country}
+
+            img(src=`${r.image_url}`, alt="Image Dish Restaurant").event-img
+            div.links
+              a(href=`?restlan=${r.coordinates.latitude}&restlng=${r.coordinates.longitude}`) Get directions
+              a(href=`${r.url}`) Yelp Website
+            a(href=`/restaurant/${r.id}`).link-style.center Details Restaurant
+
+  
+  
+  script(src="https://maps.googleapis.com/maps/api/js?key=<API-KEY>&callback=initMap&v=weekly", defer)
+  
+  script. 
+    let eventObjCenter = {
+      lat: '#{eventDetails._embedded.venues[0].location.latitude}',
+      lng: '#{eventDetails._embedded.venues[0].location.longitude}'
+    };
+
+    let firstRestaurant = {
+      lat: '#{restaurantsAround[0].coordinates.latitude}',
+      lng: '#{restaurantsAround[0].coordinates.longitude}'
+    };
+
+    console.log(eventObjCenter)
+
+      
