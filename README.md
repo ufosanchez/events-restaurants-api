@@ -13,7 +13,7 @@ The project involves the integration of three APIs:
 
 ## Homepage
 The homepage will show a list of events and restaurants that are happening in Toronto. Additionally, you can see the location of the events and restaurants on the map.
-<img src="./public/images/homepage-events.jpg" width="800">
+<img src="./public/images/homepage-events.jpg" width="100px">
 
 ## Event details in Toronto
 This page will illustrate the details of an event that was selected, in this case, this event is happening in Toronto
