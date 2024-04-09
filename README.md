@@ -12,17 +12,17 @@ The project involves the integration of three APIs:
 * Pug template engine
 
 ## Homepage
-The homepage will show a list of events and restaurants that are happening in Toronto. Additionally, you can see the location of the events and restaurants on the map.
-<img src="./public/images/homepage-events.jpg" width="100px">
+<p>The homepage will show a list of events and restaurants that are happening in Toronto. Additionally, you can see the location of the events and restaurants on the map.</p>
+<img src="./public/images/homepage-events.jpg" width="500px">
 
 ## Event details in Toronto
-This page will illustrate the details of an event that was selected, in this case, this event is happening in Toronto
-<img src="./public/images/event-details.jpg" width="800">
+<p>This page will illustrate the details of an event that was selected, in this case, this event is happening in Toronto</p>
+<img src="./public/images/event-details.jpg" width="500px">
 
 ## Restaurant details in Toronto
-This page will illustrate some information about the selected restaurant and some reviews that were provided by Yelp API
+<p>This page will illustrate some information about the selected restaurant and some reviews that were provided by Yelp API</p>
 * The pictures of the reviewers were taken from the Yelp API
-<img src="./public/images/restaurant-details.jpg" width="800">
+<img src="./public/images/restaurant-details.jpg" width="500px">
 
 ## Setup Instructions
 1. Clone the repository to your local machine.
