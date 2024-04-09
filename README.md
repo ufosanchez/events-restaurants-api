@@ -13,17 +13,16 @@ The project involves the integration of three APIs:
 
 ## Homepage
 The homepage will show a list of events and restaurants that are happening in Toronto. Additionally, you can see the location of the events and restaurants on the map.
-
+<img src="./public/images/homepage-events.jpg" width="800">
 
 ## Event details in Toronto
 This page will illustrate the details of an event that was selected, in this case, this event is happening in Toronto
-
+<img src="./public/images/event-details.jpg" width="800">
 
 ## Restaurant details in Toronto
 This page will illustrate some information about the selected restaurant and some reviews that were provided by Yelp API
 * The pictures of the reviewers were taken from the Yelp API
-
-
+<img src="./public/images/restaurant-details.jpg" width="800">
 
 ## Setup Instructions
 1. Clone the repository to your local machine.
