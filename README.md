@@ -12,7 +12,7 @@ The project involves the integration of three APIs:
 * Pug template engine
 
 ## Homepage
-
+The homepage will show a list of events and restaurants that are happening in Toronto. Additionally, you can see the location of the events and restaurants on the map.
 
 
 ## Event details in Toronto
